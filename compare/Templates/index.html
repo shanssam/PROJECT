@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Price</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <script src="{% static 'script.js' %}"></script>
+
+    <style>
+        body {
+            background-image: url("{% static 'image.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .header {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .nav {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Online Price Comparison Website</h1>
+<div class="container">
+    <div class="header">
+        <nav class="nav">
+            <a href="#" onclick="showSection('about')">About</a>
+            <a href="#" onclick="showSection('products')">Products</a>
+            <a href="#" onclick="showSection('search')">Search</a>
+            <a href="#" onclick="showSection('contact')">Contact us</a>
+        </nav>
+    </div>
+    <h2 style="color:tomato">Shop on Various Websites</h2>
+    <div class="shopping-links">
+        <ul start="1">
+            <li style="color:brown"><a href="https://www.amazon.com">1. Amazon</a></li>
+            <li><a href="https://www.flipkart.com">2. Flipkart</a></li>
+            <li><a href="https://www.meesho.com">3. Meesho</a></li>
+        </ul>
+    </div>
+</div>
+<div class="container">
+    <div class="search-bar">
+        <form action="{% url 'compare:search' %}" method="POST" target="_blank">
+            {% csrf_token %}
+            <input type="text" name="search_query" placeholder="Search products on Flipkart or Amazon..." required>
+            <button type="submit" value="Submit">Search</button>
+         </form>
+    </div>
+
+    <!-- Add the rest of your content here -->
+    <h1 style="color:magenta">Search Results</h1>
+
+<!--    <h2>Flipkart</h2>-->
+    <ul>
+        {% for product in products %}
+        <li>
+            <h3>{{ product.product.title }}</h3> <!-- Fixed: 'Product' should be lowercase 'product' -->
+            <p>Site: {{ product.site_name }} ; Item: {{product.product.name}}; Price: {{ product.price }}</p>
+
+            <p></p>
+
+            {% comment %}
+            <img src="{{ product.image_url }}" alt="{{ product.title }}">
+            {% endcomment %}
+        </li>
+        <li>
+        </li>
+        {% empty %}
+        <li style="color: peru;">Product_name: Oppo a17k Price: 9,999.</li>
+        {% endfor %}
+    </ul>
+
+<!--    <h2>Amazon</h2>-->
+<!--    <ul>-->
+<!--        {% for product in amazon_data %}-->
+<!--        <li>-->
+<!--            <h3>{{ product.title }}</h3> &lt;!&ndash; Fixed: 'Product' should be lowercase 'product' &ndash;&gt;-->
+<!--            <p>{{ product.price }}</p>-->
+<!--            <p>{{ product.description }}</p>-->
+<!--            {% comment %}-->
+<!--            <img src="{{ product.image_url }}" alt="{{ product.title }}">-->
+<!--            {% endcomment %}-->
+<!--        </li>-->
+<!--        <li>-->
+<!--        </li>-->
+<!--        {% empty %}-->
+<!--        <li style="color: orchid;">Product_name: Oppo a17k Price: 9,499.</li>-->
+<!--        {% endfor %}-->
+<!--    </ul>-->
+
+<!--    <h2>Meesho</h2>-->
+<!--    <ul>-->
+<!--        {% for product in meesho_data %} &lt;!&ndash; Fixed: Use 'meesho_data' instead of 'amazon_data' &ndash;&gt;-->
+<!--        <li>-->
+<!--            <h3>{{ product.title }}</h3> &lt;!&ndash; Fixed: 'Product' should be lowercase 'product' &ndash;&gt;-->
+<!--            <p>{{ product.price }}</p>-->
+<!--            <p>{{ product.description }}</p>-->
+<!--            <img src="{{ product.image_url }}" alt="{{ product.title }}">-->
+<!--        </li>-->
+<!--        {% empty %}-->
+<!--        {% comment %}-->
+<!--        <img src="{{ product.image_url }}" alt="{{ product.title }}">-->
+<!--        {% endcomment %}-->
+<!--    </ul>-->
+<!--    <ul>-->
+<!--        {% endfor %}-->
+<!--    </ul>-->
+<!--      <li style="color: peru;">Product_name: Oppo a17k Price: 9,999.</li>-->
+</div>
+<div class="container">
+    <h2>Products</h2>
+    <p>Our website most popular products.</p>
+    <ol>
+        <li>Mobiles</li>
+        <li>Laptops</li>
+        <li>Sunglasses</li>
+        <li>Toys</li>
+        <li>Shoes</li>
+    </ol>
+</div>
+<div class="container">
+    <h2 style="color:darkblue">Contact Us</h2>
+    <p style="color:dark">For any inquiries or assistance, please feel free to contact us using the information below:</p>
+    <ul>
+        <li>Email  : contact@example.com</li>
+        <li>Phone  : +1234567890</li>
+        <li>Address: 123 Main Street, City, Country</li>
+    </ul>
+</div>
+<style>
+body {
+    background-image: url("{% static 'image.jpeg' %}");
+    /* Additional CSS properties for background styling */
+}
+</style>
+</body>
+</html>
